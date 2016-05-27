@@ -1,0 +1,34 @@
+---
+name: rsc
+help: blah
+flags:
+  - name: help
+    short: '-h'
+    help: this help menu
+commands:
+  - name: lksdflkjsdflkjsdf
+    help: something
+  - name: list
+    aliases: ["ls"]
+    help: list resources
+    commands:
+      - name: buckets
+        help: lists runscope buckets
+        output: |
+          {{ namevar }}
+          {{ namevar }}
+          {{ namevar }}
+      - name: tests
+        help: lists runscope tests for a given bucket
+        flags:
+          - name: bucket
+            short: '-b'
+            required: true
+            value: string
+            help: bucket to list tests in
+        output: |
+          test1: {{ namevar }}
+          test2: {{ namevar }}
+          test3: {{ namevar }}
+  - name: help
+    help: displays this help screen

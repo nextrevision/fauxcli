@@ -1,0 +1,4 @@
+package: github.com/nextrevision/climock
+import:
+- package: github.com/Sirupsen/logrus
+- package: gopkg.in/yaml.v2
