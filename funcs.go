@@ -1,11 +1,17 @@
 package main
 
-import "strings"
+import "github.com/Pallinder/go-randomdata"
 
-func namevar() string {
-	return "bill"
+func randomFullName() string {
+	return randomdata.FullName(randomdata.RandomGender)
 }
 
-func join(s []string, d string) string {
-	return strings.Join(s, d)
+func toString(v interface{}) string {
+	r := v.(*string)
+	return *r
+}
+
+func toBool(v interface{}) bool {
+	r := v.(*bool)
+	return *r
 }
