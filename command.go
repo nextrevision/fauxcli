@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"os"
@@ -20,6 +21,18 @@ type Command struct {
 	Flags    []Flag    `yaml:"flags"`
 }
 
+func validateCommand(command Command) error {
+	if command.Name == "" {
+		return fmt.Errorf("Missing name for command: %+v", command)
+	}
+
+	if command.Help == "" {
+		return fmt.Errorf("Missing help for command: %s", command.Name)
+	}
+
+	return nil
+}
+
 func setCommand(command Command) *cobra.Command {
 	c := &cobra.Command{Use: command.Name}
 	if command.Help != "" {
@@ -32,7 +45,7 @@ func setCommand(command Command) *cobra.Command {
 	}
 
 	if command.Output != "" {
-		c.Run = func(c *cobra.Command, s []string) {
+		c.Run = func(c *cobra.Command, args []string) {
 			funcmap := template.FuncMap{
 				"name":      randomdata.SillyName,
 				"fullname":  randomFullName,
@@ -48,19 +61,29 @@ func setCommand(command Command) *cobra.Command {
 				"date":      randomdata.FullDate,
 				"string":    toString,
 				"bool":      toBool,
+				"count":     count,
 			}
 			gtf.Inject(funcmap)
 
-			t, err := template.New("output").Funcs(funcmap).Parse(command.Output)
-			if err != nil {
-				log.Fatalf("Error parsing template: %s", err.Error())
+			data := struct {
+				Flags map[string]Flag
+				Args  []string
+			}{
+				Flags: flags,
+				Args:  args,
 			}
 
-			err = template.Must(t, err).Execute(os.Stdout, flags)
+			t, err := template.New("output").Funcs(funcmap).Parse(command.Output)
 			if err != nil {
-				log.Fatalf("Error parsing template: %s", err.Error())
+				log.Fatalf("Error parsing %s output: %s", command.Name, err.Error())
+			}
+
+			err = template.Must(t, err).Execute(os.Stdout, data)
+			if err != nil {
+				log.Fatalf("Error parsing %s output: %s", command.Name, err.Error())
 			}
 		}
 	}
+
 	return c
 }

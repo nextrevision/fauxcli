@@ -1,0 +1,66 @@
+---
+# (required) name of the command
+name: mycliapp
+
+# (required) the help text for the command (displayed with -h)
+help: does something cool
+
+# additional command aliases
+aliases: ["myapp", "app"]
+
+# output to print when the command is run
+# if this key is omitted, the command will act as a
+# parent to any subcommands, essentially doing nothing
+# but printing the help text
+output: |
+  Hello, World!
+
+# flags available to the command
+flags:
+    # (required) long name of the flag (--debug)
+  - name: debug
+
+    # (required) help text for the flag
+    help: enables debugging
+
+    # short name for the flag (-d)
+    short: d
+
+    # default value of the flag
+    default: false
+
+    # make the flag globally available
+    global: true
+
+    # the type of the value (default string)
+    # available types:
+    #   - string
+    #   - bool
+    type: bool
+
+# subcommands (nested from all the options above)
+commands:
+  - name: subcommand1
+    help: a subcommand
+    flags:
+      - name: upper
+        help: converts output to uppercase
+        short: u
+        type: bool
+    output: |
+      {{ if .Flags.upper.Bool -}}
+      HELLO FROM SC1!
+      {{ else -}}
+      Hello from SC1!
+      {{ end -}}
+  - name: subcommand2
+    help: another subcommand with children
+    commands:
+      - name: child1
+        help: im the first child
+        output: |
+          first born
+      - name: child2
+        help: because why not
+        output: |
+          best child

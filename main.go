@@ -4,37 +4,56 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 
 	"github.com/spf13/cobra"
 
 	"gopkg.in/yaml.v2"
 )
 
-var flags = map[string]interface{}{}
+var flags = map[string]Flag{}
 
 func main() {
-	cli, err := loadCLIYAML()
+	filename := "cli.yaml"
+	if os.Getenv("CLIMOCK_FILE") != "" {
+		filename = os.Getenv("CLIMOCK_FILE")
+	}
+
+	cli, err := loadCLIYAML(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	processCommands(cli).Execute()
+	err = processCommands(cli).Execute()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func processCommands(command Command) *cobra.Command {
-	root := setCommand(command)
+	cobraCommand := setCommand(command)
 	if len(command.Commands) > 0 {
 		for _, c := range command.Commands {
-			root.AddCommand(processCommands(c))
+			err := validateCommand(c)
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+
+			cobraCommand.AddCommand(processCommands(c))
 		}
 	}
 
 	if len(command.Flags) > 0 {
 		for _, f := range command.Flags {
-			flagSet := root.Flags()
+			err := validateFlag(f, flags)
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+
+			flagSet := cobraCommand.Flags()
 
 			if f.Global {
-				flagSet = root.PersistentFlags()
+				flagSet = cobraCommand.PersistentFlags()
 			}
 
 			switch f.Type {
@@ -48,12 +67,12 @@ func processCommands(command Command) *cobra.Command {
 		}
 	}
 
-	return root
+	return cobraCommand
 }
 
-func loadCLIYAML() (Command, error) {
+func loadCLIYAML(filename string) (Command, error) {
 	command := Command{}
-	contents, err := ioutil.ReadFile("cli.yml")
+	contents, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return command, fmt.Errorf("cli.yml not found in current directory")
 	}

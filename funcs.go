@@ -15,3 +15,15 @@ func toBool(v interface{}) bool {
 	r := v.(*bool)
 	return *r
 }
+
+func count(n int) []struct{} {
+	return make([]struct{}, n)
+}
+
+func isEmpty(v []string) bool {
+	if len(v) > 0 {
+		return false
+	}
+
+	return true
+}

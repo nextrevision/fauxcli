@@ -1,0 +1,61 @@
+---
+name: fileutil
+help: performs operations on files and directories
+flags:
+  - name: verbose
+    short: v
+    type: bool
+    help: enable verbose logging
+    global: true
+commands:
+  - name: list
+    aliases: ["ls"]
+    help: lists all files and folders in a directory
+    flags:
+      - name: dirs
+        short: d
+        type: bool
+        help: list dirs
+      - name: files
+        short: f
+        type: bool
+        help: list files
+      - name: all
+        short: a
+        type: bool
+        help: include hidden files and folders
+    output: |
+      {{ if not .Flags.files.Bool -}}
+      {{ if .Flags.all.Bool -}}
+      d: .
+      d: ..
+      {{ end -}}
+      {{ range $_, $_ := count 3 -}}
+      d: {{ name | lower }}
+      {{ end -}}
+      {{ end -}}
+      {{ if not .Flags.dirs.Bool -}}
+      {{ range $_, $_ := count 3 -}}
+      f: {{ name | lower }}
+      {{ end -}}
+      {{ end -}}
+  - name: new
+    aliases: ["create", "make"]
+    help: create a new resource
+    commands:
+      - name: file
+        help: creates a new file resource
+        output: |
+          {{ if .Args | lengthis 0 -}}
+          ERROR: must pass the name of the resource to create
+          {{ else -}}
+          Created file: {{ .Args | first }}
+          {{ end -}}
+      - name: dir
+        help: creates a new directory resource
+        output: |
+          {{ if .Args | lengthis 0 -}}
+          ERROR: must pass the name of the resource to create
+          {{ else -}}
+          Created dir: {{ .Args | first }}
+          {{ end -}}
