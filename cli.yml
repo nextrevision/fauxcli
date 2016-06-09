@@ -2,9 +2,11 @@
 name: rsc
 help: blah
 flags:
-  - name: help
-    short: '-h'
-    help: this help menu
+  - name: blah
+    short: 'c'
+    default: string
+    help: something stupid
+    global: true
 commands:
   - name: lksdflkjsdflkjsdf
     help: something
@@ -15,20 +17,20 @@ commands:
       - name: buckets
         help: lists runscope buckets
         output: |
-          {{ namevar }}
-          {{ namevar }}
-          {{ namevar }}
+          {{ name }}
+          {{ name }}
+          {{ name }}
       - name: tests
         help: lists runscope tests for a given bucket
         flags:
           - name: bucket
-            short: '-b'
-            required: true
+            short: 'b'
             value: string
             help: bucket to list tests in
         output: |
-          test1: {{ namevar }}
-          test2: {{ namevar }}
-          test3: {{ namevar }}
-  - name: help
-    help: displays this help screen
+          {{ if .bucket|string | ne "" -}}
+          tests for bucket '{{ .bucket }}'
+          {{ end -}}
+          test1: {{ name | lower }}
+          test2: {{ name }}
+          test3: {{ name }}

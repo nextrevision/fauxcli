@@ -1,12 +1,18 @@
-hash: 668adb039222f00c3d6524968b33c69375d67d7eaa3476a0dc2748d18760b3d7
-updated: 2016-05-14T10:16:47.357739907-04:00
+hash: 8650cdae8f25bab6883fa5461ca6109a5da1377055722058d46df1ad82f48aa3
+updated: 2016-06-09T13:50:43.827596297-04:00
 imports:
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/leekchan/gtf
+  version: 882e96b937c8506c67b5adf98ff1f84cd7b7b93a
+- name: github.com/Pallinder/go-randomdata
+  version: 104cc800bd6434e70cb0c3ad08c4541f4f2eb48b
 - name: github.com/Sirupsen/logrus
   version: cd7d1bbe41066b6c1f19780f895901052150a575
-- name: golang.org/x/sys
-  version: 33267e036fd93fcd26ea95b7bdaf2d8306cb743c
-  subpackages:
-  - unix
+- name: github.com/spf13/cobra
+  version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
+- name: github.com/spf13/pflag
+  version: cb88ea77998c3f024757528e3305022ab50b43be
 - name: gopkg.in/yaml.v2
   version: a83829b6f1293c91addabc89d0571c246397bbf4
 devImports: []
