@@ -1,5 +1,5 @@
-hash: 8650cdae8f25bab6883fa5461ca6109a5da1377055722058d46df1ad82f48aa3
-updated: 2016-06-09T13:50:43.827596297-04:00
+hash: 5633436e3c61d8edb01e1bc6c2a185be890b86d79517d4dc0ac4db6a8e7fab53
+updated: 2016-06-09T15:28:06.27176339-04:00
 imports:
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
@@ -7,8 +7,6 @@ imports:
   version: 882e96b937c8506c67b5adf98ff1f84cd7b7b93a
 - name: github.com/Pallinder/go-randomdata
   version: 104cc800bd6434e70cb0c3ad08c4541f4f2eb48b
-- name: github.com/Sirupsen/logrus
-  version: cd7d1bbe41066b6c1f19780f895901052150a575
 - name: github.com/spf13/cobra
   version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
 - name: github.com/spf13/pflag
