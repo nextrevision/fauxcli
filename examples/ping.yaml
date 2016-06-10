@@ -1,0 +1,21 @@
+---
+name: ping
+help: sends an ICMP echo request to a host
+flags:
+  - name: count
+    help: number of pings to send
+    short: c
+    default: 5
+    type: int
+output: |
+  {{ if .Args | lengthis 0 -}}
+  ERROR: must pass a host to ping
+  {{ else -}}
+  PING {{ .Args | first }} ({{ ipaddress }}): 56 data bytes
+  {{ range $i, $_ := count .Flags.count.Int -}}
+  64 bytes from {{ ipaddress }}: icmp_seq={{ $i }} ttl=53 time=12.141 ms
+  {{ end -}}
+  --- {{ .Args | first }} ping statistics ---
+  {{ .Flags.count.Int }} packets transmitted, {{ .Flags.count.Int }} packets received, 0.0% packet loss
+  round-trip min/avg/max/stddev = 11.749/12.050/12.474/0.247 ms
+  {{ end -}}
