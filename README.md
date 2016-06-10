@@ -75,7 +75,12 @@ go get github.com/nextrevision/fauxcli
 Using GitHub releases:
 
 ```
-curl -s -o /usr/local/bin/fauxcli https://github.com/nextrevision/fauxcli/archive/fauxcli
+# OSX
+curl -s -o /usr/local/bin/fauxcli https://github.com/nextrevision/fauxcli/releases/download/1.0.0/fauxcli_darwin_amd64
+
+# Linux
+curl -s -o /usr/local/bin/fauxcli https://github.com/nextrevision/fauxcli/releases/download/1.0.0/fauxcli_linux_amd64
+
 chmod +x /usr/local/bin/fauxcli
 ```
 
