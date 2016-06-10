@@ -4,4 +4,4 @@ test:
     - go test -v
     - make build-ci
   post:
-    - mv climock_* $CIRCLE_ARTIFACTS/
+    - mv fauxcli_* $CIRCLE_ARTIFACTS/

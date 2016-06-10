@@ -1,4 +1,4 @@
-package: github.com/nextrevision/climock
+package: github.com/nextrevision/fauxcli
 import:
 - package: gopkg.in/yaml.v2
 - package: github.com/Pallinder/go-randomdata

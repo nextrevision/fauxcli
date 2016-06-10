@@ -1,4 +1,4 @@
-# climock
+# fauxcli
 
 Mocks a command line client from a given YAML file.
 
@@ -7,7 +7,7 @@ Mocks a command line client from a given YAML file.
 Install:
 
 ```
-$ go get github.com/nextrevision/climock
+$ go get github.com/nextrevision/fauxcli
 ```
 
 Create a `cli.yaml` file in your current directory:
@@ -26,17 +26,17 @@ output: |
   Hello, World!
 ```
 
-Run `climock`:
+Run `fauxcli`:
 
 ```
-$ climock
+$ fauxcli
 Hello World!
 ```
 
 With the `--debug` flag:
 
 ```
-$ climock --debug
+$ fauxcli --debug
 DEBUG: about to greet the world
 Hello, World!
 ```
@@ -44,7 +44,7 @@ Hello, World!
 Help screen:
 
 ```
-$ climock --help
+$ fauxcli --help
 does whatever a mycliapp does
 
 Usage:
@@ -59,19 +59,19 @@ Flags:
 With go:
 
 ```
-go get github.com/nextrevision/climock
+go get github.com/nextrevision/fauxcli
 ```
 
 Using GitHub releases:
 
 ```
-curl -s -o /usr/local/bin/climock https://github.com/nextrevision/climock/archive/climock
-chmod +x /usr/local/bin/climock
+curl -s -o /usr/local/bin/fauxcli https://github.com/nextrevision/fauxcli/archive/fauxcli
+chmod +x /usr/local/bin/fauxcli
 ```
 
 ## `cli.yaml`
 
-The `cli.yaml` file holds all the details required in order to mock a CLI application. By default, `climock` will look in your current directory for this file. You can override this setting with the `CLIMOCK_FILE` environment variable pointing to a different YAML file of your choosing.
+The `cli.yaml` file holds all the details required in order to mock a CLI application. By default, `fauxcli` will look in your current directory for this file. You can override this setting with the `CLIMOCK_FILE` environment variable pointing to a different YAML file of your choosing.
 
 ```
 ---
