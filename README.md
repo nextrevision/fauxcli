@@ -1,5 +1,7 @@
 # fauxcli
 
+[![CircleCI](https://circleci.com/gh/nextrevision/fauxcli.svg?style=svg)](https://circleci.com/gh/nextrevision/fauxcli)
+
 FauxCLI (pronounced foak-ley) mocks a command line client from a given YAML file.
 
 ## Quickstart
