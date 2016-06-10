@@ -12,7 +12,7 @@ cover:
 	rm coverage.out
 
 build:
-	gox -os="darwin linux" -osarch="darwin/386 darwin/amd64 linux/386 linux/amd64"
+	gox -osarch="darwin/386 darwin/amd64 linux/386 linux/amd64"
 
 build-ci:
 	go get github.com/mitchellh/gox
