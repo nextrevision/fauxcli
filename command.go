@@ -61,6 +61,8 @@ func setCommand(command Command) *cobra.Command {
 				"date":      randomdata.FullDate,
 				"string":    toString,
 				"bool":      toBool,
+				"int":       toInt,
+				"float":     toFloat,
 				"count":     count,
 			}
 			gtf.Inject(funcmap)

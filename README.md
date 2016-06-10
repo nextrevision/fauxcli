@@ -112,6 +112,8 @@ flags:
     # available types:
     #   - string
     #   - bool
+    #   - int
+    #   - float
     type: bool
 
 # subcommands (nested from all the options above)
@@ -151,7 +153,7 @@ The `output` section of a command uses the Golang [template](https://golang.org/
 
 ### Flags
 
-Flags can be accessed using the following syntax in the output section: `{{ .Flags.flagname }}`. This, however, is not very useful on its own. If you want to retrieve the genericly typed value of a flag, you can use `{{ .Flags.flagname.Value }}`. This is useful for just dumping the value, regardless of type. If you are doing a comparison, like checking if a string flag's value is empty, you need to retrieve the typed value instead, so for a string `{{ .Flags.flagname.String }}` (for bools, `{{ .Flags.flagname.Bool }}`.
+Flags can be accessed using the following syntax in the output section: `{{ .Flags.flagname }}`. This, however, is not very useful on its own. If you want to retrieve the genericly typed value of a flag, you can use `{{ .Flags.flagname.Value }}`. This is useful for just dumping the value, regardless of type. If you are doing a comparison, like checking if a string flag's value is empty, you need to retrieve the typed value instead, so for a string `{{ .Flags.flagname.String }}`, bools `{{ .Flags.flagname.Bool }}`, ints `{{ .Flags.flagname.Int }}`, and floats `{{ .Flags.flagname.Float }}`.
 
 ### Args
 
@@ -229,6 +231,8 @@ Again, see the [reference here](https://github.com/leekchan/gtf#reference) for a
 |----------|-------------|-------|
 | string | type casts value as a string | `{{ .Flags.flagname.Value | string }}` |
 | bool | type casts value as a bool | `{{ .Flags.flagname.Value | bool }}` |
+| int | type casts value as a int | `{{ .Flags.flagname.Value | int }}` |
+| float | type casts value as a float (float64) | `{{ .Flags.flagname.Value | float }}` |
 | count | returns an iterator with the specified size | `{{ range $i, $_ := count 3  }}` |
 
 ## Examples

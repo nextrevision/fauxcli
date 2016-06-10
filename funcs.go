@@ -16,14 +16,16 @@ func toBool(v interface{}) bool {
 	return *r
 }
 
-func count(n int) []struct{} {
-	return make([]struct{}, n)
+func toInt(v interface{}) int {
+	r := v.(*int)
+	return *r
 }
 
-func isEmpty(v []string) bool {
-	if len(v) > 0 {
-		return false
-	}
+func toFloat(v interface{}) float64 {
+	r := v.(*float64)
+	return *r
+}
 
-	return true
+func count(n int) []struct{} {
+	return make([]struct{}, n)
 }

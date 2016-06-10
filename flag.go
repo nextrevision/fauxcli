@@ -75,6 +75,42 @@ func setBoolFlag(f Flag, fs *pflag.FlagSet) {
 	)
 }
 
+func setIntFlag(f Flag, fs *pflag.FlagSet) {
+	f.value = new(int)
+	flags[f.Name] = f
+
+	d := 0
+	if f.Default != nil {
+		d = f.Default.(int)
+	}
+
+	fs.IntVarP(
+		flags[f.Name].value.(*int),
+		f.Name,
+		f.Short,
+		d,
+		f.Help,
+	)
+}
+
+func setFloatFlag(f Flag, fs *pflag.FlagSet) {
+	f.value = new(float64)
+	flags[f.Name] = f
+
+	d := 0.0
+	if f.Default != nil {
+		d = f.Default.(float64)
+	}
+
+	fs.Float64VarP(
+		flags[f.Name].value.(*float64),
+		f.Name,
+		f.Short,
+		d,
+		f.Help,
+	)
+}
+
 // Value returns the generic interface value of a flag
 func (f Flag) Value() interface{} {
 	return f.value
@@ -98,4 +134,24 @@ func (f Flag) Bool() bool {
 	}
 
 	return false
+}
+
+// Int returns the int value of a flag
+func (f Flag) Int() int {
+	if f.Type == "int" {
+		v := f.value.(*int)
+		return *v
+	}
+
+	return 0
+}
+
+// Float returns the int value of a flag
+func (f Flag) Float() float64 {
+	if f.Type == "float" {
+		v := f.value.(*float64)
+		return *v
+	}
+
+	return 0
 }

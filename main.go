@@ -61,6 +61,10 @@ func processCommands(command Command) *cobra.Command {
 				setStringFlag(f, flagSet)
 			case "bool":
 				setBoolFlag(f, flagSet)
+			case "int":
+				setIntFlag(f, flagSet)
+			case "float":
+				setFloatFlag(f, flagSet)
 			default:
 				setStringFlag(f, flagSet)
 			}
