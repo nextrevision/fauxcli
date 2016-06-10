@@ -1,6 +1,6 @@
 # fauxcli
 
-Mocks a command line client from a given YAML file.
+FauxCLI (pronounced foak-ley) mocks a command line client from a given YAML file.
 
 ## Quickstart
 
