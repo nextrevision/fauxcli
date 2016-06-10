@@ -4,6 +4,8 @@
 
 FauxCLI (pronounced foak-ley) mocks a command line client from a given YAML file.
 
+![FauxCLI Example](example.gif)
+
 ## Quickstart
 
 Install:
