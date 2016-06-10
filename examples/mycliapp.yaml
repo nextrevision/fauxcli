@@ -57,10 +57,10 @@ commands:
     help: another subcommand with children
     commands:
       - name: child1
-        help: im the first child
+        help: the first child command
         output: |
-          first born
+          Hello from child1
       - name: child2
-        help: because why not
+        help: the second child command
         output: |
-          best child
+          Hello from child2

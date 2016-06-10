@@ -1,0 +1,7 @@
+test:
+  override:
+    - go vet
+    - go test -v
+    - make build-ci
+  post:
+    - mv climock_* $CIRCLE_ARTIFACTS/
