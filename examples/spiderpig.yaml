@@ -1,0 +1,11 @@
+name: spiderpig
+help: does whatever a spiderpig does
+commands:
+  - name: swing
+    help: swings from a web
+    output: |
+      I can't do that, I'm a pig!
+  - name: plop
+    help: super secret maneuver
+    output: |
+      Look out!

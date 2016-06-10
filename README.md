@@ -17,45 +17,49 @@ $ go get github.com/nextrevision/fauxcli
 Create a `cli.yaml` file in your current directory:
 
 ```
-name: mycliapp
-help: does whatever a mycliapp does
-flags:
-  - name: debug
-    help: enables debugging output
-    type: bool
-output: |
-  {{ if .Flags.debug.Bool -}}
-  DEBUG: about to greet the world
-  {{ end -}}
-  Hello, World!
+name: spiderpig
+help: does whatever a spiderpig does
+commands:
+  - name: swing
+    help: swings from a web
+    output: |
+      I can't do that, I'm a pig!
+  - name: plop
+    help: super secret maneuver
+    output: |
+      Look out!
 ```
 
 Run `fauxcli`:
 
 ```
 $ fauxcli
-Hello World!
-```
-
-With the `--debug` flag:
-
-```
-$ fauxcli --debug
-DEBUG: about to greet the world
-Hello, World!
-```
-
-Help screen:
-
-```
-$ fauxcli --help
-does whatever a mycliapp does
+does whatever a spiderpig does
 
 Usage:
-  mycliapp [flags]
+  spiderpig [command]
+
+Available Commands:
+  swing       swings from a web
+  plop        super secret maneuver
 
 Flags:
-      --debug   enables debugging output
+  -h, --help   help for spiderpig
+
+Use "spiderpig [command] --help" for more information about a command.
+```
+
+```
+$ fauxcli swing
+I can't do that, I'm a pig!
+```
+
+Aliasing:
+
+```
+$ alias spiderpig='fauxcli'
+$ spiderpig plop
+Look out!
 ```
 
 ## Installation
