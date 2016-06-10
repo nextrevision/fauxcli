@@ -49,6 +49,8 @@ Flags:
 Use "spiderpig [command] --help" for more information about a command.
 ```
 
+With a subcommand:
+
 ```
 $ fauxcli swing
 I can't do that, I'm a pig!
