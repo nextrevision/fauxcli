@@ -55,6 +55,15 @@ func TestProcessCommands(t *testing.T) {
 	assert.Nil(t, c.Execute())
 }
 
+func TestFileExists(t *testing.T) {
+	if !fileExists("examples/fileutil.yml") {
+		t.Fatal("should be true")
+	}
+	if fileExists("examples/doesnotexist.yml") {
+		t.Fatal("should be false")
+	}
+}
+
 func TestLoadCLIYAML(t *testing.T) {
 	want := Command{
 		Name:    "mycliapp",

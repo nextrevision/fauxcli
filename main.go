@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -14,9 +13,15 @@ import (
 var flags = map[string]Flag{}
 
 func main() {
-	filename := "cli.yaml"
-	if os.Getenv("CLIMOCK_FILE") != "" {
+	var filename string
+	if fileExists("cli.yaml") {
+		filename = "cli.yaml"
+	} else if fileExists("cli.yml") {
+		filename = "cli.yml"
+	} else if fileExists(os.Getenv("CLIMOCK_FILE")) {
 		filename = os.Getenv("CLIMOCK_FILE")
+	} else {
+		log.Fatalf("cli.yml not found")
 	}
 
 	cli, err := loadCLIYAML(filename)
@@ -74,11 +79,22 @@ func processCommands(command Command) *cobra.Command {
 	return cobraCommand
 }
 
+func fileExists(filename string) bool {
+	_, err := os.Stat(filename)
+	if err == nil {
+		return true
+	}
+	if os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
 func loadCLIYAML(filename string) (Command, error) {
 	command := Command{}
 	contents, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return command, fmt.Errorf("cli.yml not found in current directory")
+		return command, err
 	}
 
 	err = yaml.Unmarshal(contents, &command)
