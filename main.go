@@ -16,6 +16,8 @@ func main() {
 	filename := "cli.yml"
 	if fileExists("cli.yaml") {
 		filename = "cli.yaml"
+	} else if os.Getenv("CLIMOCK_FILE") != "" {
+		filename = os.Getenv("CLIMOCK_FILE")
 	} else if os.Getenv("FAUXCLI_FILE") != "" {
 		filename = os.Getenv("FAUXCLI_FILE")
 	}
