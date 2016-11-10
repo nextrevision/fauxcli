@@ -13,15 +13,21 @@ import (
 var flags = map[string]Flag{}
 
 func main() {
-	var filename string
+	filename := "cli.yml"
 	if fileExists("cli.yaml") {
 		filename = "cli.yaml"
-	} else if fileExists("cli.yml") {
-		filename = "cli.yml"
-	} else if fileExists(os.Getenv("CLIMOCK_FILE")) {
+	} else if os.Getenv("CLIMOCK_FILE") != "" {
 		filename = os.Getenv("CLIMOCK_FILE")
-	} else {
-		log.Fatalf("cli.yml not found")
+	} else if os.Getenv("FAUXCLI_FILE") != "" {
+		filename = os.Getenv("FAUXCLI_FILE")
+	}
+
+	if !fileExists(filename) && os.Getenv("FAUXCLI_INIT") == "1" {
+		if err := initCLIYAML(filename); err != nil {
+			log.Fatalf("Could not init fauxcli file %s: %s", filename, err)
+		}
+	} else if !fileExists(filename) {
+		log.Fatalf("%s not found", filename)
 	}
 
 	cli, err := loadCLIYAML(filename)
@@ -88,6 +94,48 @@ func fileExists(filename string) bool {
 		return false
 	}
 	return true
+}
+
+func initCLIYAML(filename string) error {
+	root := Command{
+		Name:    "mycliapp",
+		Help:    "does something cool",
+		Aliases: []string{"myapp", "app"},
+		Output:  "Hello, World!\n",
+		Flags: []Flag{
+			Flag{
+				Name:    "debug",
+				Short:   "d",
+				Help:    "enables debugging",
+				Default: false,
+				Global:  true,
+				Type:    "bool",
+			},
+		},
+		Commands: []Command{
+			Command{
+				Name:   "subcommand1",
+				Help:   "a subcommand",
+				Output: "{{ if .Flags.upper.Bool -}}\nHELLO FROM SC1!\n{{ else -}}\nHello from SC1!\n{{ end -}}",
+				Flags: []Flag{
+					Flag{
+						Name:  "upper",
+						Short: "u",
+						Help:  "converts output to uppercase",
+						Type:  "bool",
+					},
+				},
+			},
+		},
+	}
+
+	data, err := yaml.Marshal(&root)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(filename, data, 0644)
+	return err
 }
 
 func loadCLIYAML(filename string) (Command, error) {
