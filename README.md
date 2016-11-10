@@ -14,7 +14,7 @@ Install:
 $ go get github.com/nextrevision/fauxcli
 ```
 
-Create a `cli.yaml` file in your current directory:
+Create a `cli.yml` file in your current directory (or init one with `FAUXCLI_INIT=1 fauxcli`):
 
 ```
 name: spiderpig
@@ -84,9 +84,9 @@ curl -s -o /usr/local/bin/fauxcli https://github.com/nextrevision/fauxcli/releas
 chmod +x /usr/local/bin/fauxcli
 ```
 
-## `cli.yaml`
+## `cli.yml`
 
-The `cli.yaml` file holds all the details required in order to mock a CLI application. By default, `fauxcli` will look in your current directory for this file. You can override this setting with the `CLIMOCK_FILE` environment variable pointing to a different YAML file of your choosing.
+The `cli.yml` file holds all the details required in order to mock a CLI application. By default, `fauxcli` will look in your current directory for this file. You can override this setting with the `FAUXCLI_FILE` environment variable pointing to a different YAML file of your choosing.
 
 ```
 ---
@@ -157,6 +157,15 @@ commands:
         help: the second child command
         output: |
           Hello from child2
+```
+
+### Initializing a `cli.yml`
+
+Run fauxcli with the environment variable `FAUXCLI_INIT` set to `1` to create a sample cli.yml.
+
+```
+$ FAXUCLI_INIT=1 fauxcli
+Hello, World!
 ```
 
 ## Output

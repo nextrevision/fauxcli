@@ -1,0 +1,30 @@
+name: mycliapp
+aliases:
+- myapp
+- app
+help: does something cool
+output: |
+  Hello world
+commands:
+- name: subcommand1
+  aliases: []
+  help: a subcommand
+  output: |-
+    {{ if .Flags.upper.Bool -}}
+    HELLO FROM SC1!
+    {{ else -}}Hello from SC1!{{ end -}}
+  commands: []
+  flags:
+  - name: upper
+    short: u
+    help: converts output to uppercase
+    global: false
+    default: null
+    type: bool
+flags:
+- name: debug
+  short: d
+  help: enables debugging
+  global: true
+  default: false
+  type: bool
